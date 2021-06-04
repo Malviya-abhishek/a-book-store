@@ -1,0 +1,73 @@
+@import './variables';
+
+body{
+  font-family: 'Hind Siliguri', sans-serif;
+  color: $primary;
+  -webkit-font-smoothing: antialiased;
+  background-color:  $secondary;
+}
+nav{
+  
+  color: $dark;
+}
+
+.card{
+  // border: 2px solid black;
+  background-color: $temp;
+  color: $pure;
+}
+
+.btn-add-cart{
+  background: $secondary;
+  color: $primary;
+  transition: $smooth;
+  border: 2px solid $secondary;
+
+  &:hover{
+    background: $dark;
+    color: $pure;
+    border: 2px solid $pure;
+  }
+  &:focus{
+    outline: none;
+  }
+}
+
+.btn-go-back{
+  color: $primary;
+  border: solid 2px $temp;
+  
+  &:hover{
+    background: $dark;
+    color: $pure;
+    border: 2px solid $pure;
+    transition: $smooth;
+
+  }
+}
+
+#cartCounter{
+  color: $primary;
+  border: solid 2px $temp;
+  
+  &:hover{
+    background: $dark;
+    color: $pure;
+    border: 2px solid $pure;
+    transition: $smooth;
+
+  }
+}
+
+#cartCounter img {
+  padding-right: 10px;
+}
+
+#cartCounter span{
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+#profile{
+  margin-left: 10px;
+}

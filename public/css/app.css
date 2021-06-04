@@ -1,0 +1,65 @@
+body {
+  font-family: "Hind Siliguri", sans-serif;
+  color: #2563EB;
+  -webkit-font-smoothing: antialiased;
+  background-color: #F8F8F8;
+}
+
+nav {
+  color: #1E3A8A;
+}
+
+.card {
+  background-color: #60A5FA;
+  color: #fff;
+}
+
+.btn-add-cart {
+  background: #F8F8F8;
+  color: #2563EB;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #F8F8F8;
+}
+.btn-add-cart:hover {
+  background: #1E3A8A;
+  color: #fff;
+  border: 2px solid #fff;
+}
+.btn-add-cart:focus {
+  outline: none;
+}
+
+.btn-go-back {
+  color: #2563EB;
+  border: solid 2px #60A5FA;
+}
+.btn-go-back:hover {
+  background: #1E3A8A;
+  color: #fff;
+  border: 2px solid #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+#cartCounter {
+  color: #2563EB;
+  border: solid 2px #60A5FA;
+}
+#cartCounter:hover {
+  background: #1E3A8A;
+  color: #fff;
+  border: 2px solid #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+#cartCounter img {
+  padding-right: 10px;
+}
+
+#cartCounter span {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+#profile {
+  margin-left: 10px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+  <title>e-commerce</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="container mx-auto flex justify-between py-4  ">
+    <div>
+      <a href="/">
+        <img src="/img/logo.png" class="h-14" alt="logo_img">
+      </a>
+    </div>
+
+    <div class=" my-auto flex">
+      <a  id="cartCounter" class="flex rounded-2xl " href="/cart">
+        <span class="font-bold text-2xl my-auto">
+          1
+        </span>
+        <img class="my-auto h-10" src="/img/shopping-cart.png" alt="user_img">
+      </a>
+
+      <a id="profile" href="/"   >
+        <img class="my-auto h-10 mr-2" src="/img/user.png" alt="user_img">
+      </a>
+
+    </div>
+
+  </nav>
+  <!-- NAVBAR END -->
+
+  <%- body %>
+
+
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

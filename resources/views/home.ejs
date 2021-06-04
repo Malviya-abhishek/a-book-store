@@ -1,0 +1,50 @@
+<!-- HERO SECTION -->
+<section class="hero container mx-auto flex justify-between">
+  <div class="container mx-auto flex items-center justify-between">
+    <div class="w-1/2 pl-5">
+      <h1 class="text-2xl font-bold pr-5"> <q> If you don’t like to read, you haven’t found the right book. </q></h1>
+
+      <h6 class="text-xl"><em>-J.K. Rowling</em></h6>
+    </div>
+    <div class="w-1/2">
+      <img src="/img/hero-book.jpg" alt="">
+    </div>
+  </div>
+</section>
+<!-- HERO SECTION END -->
+
+
+
+<!-- STORE SECTION -->
+<section class="store container mx-auto py-24 ">
+
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3   gap-x-10 gap-y-10 pl-5">
+    <% for(let i=1, book = "/img/book" + ( 1 +  i%4) +".jpg"  ; i <= 12 ; ++i, book = "/img/book" + (1 +  i%4) +".jpg" ){ %>
+      <!-- CARD -->
+      <div class="card w-70 rounded-2xl pt-5 pb-5">
+        <img class="h-96 max-w-md mb-4 mx-auto" src= "<%= book %>" alt="">
+        <div class="text-center">
+          <h2 class="mb-4 text-xl font-bold">
+            The last of the moon girl
+          </h2>
+          <span class="size py-1 px-4 rounded-full uppercase">
+            paperback | English | Young Adult
+          </span>
+          <div class="flex items-center justify-around mt-6">
+            <span class=" text-xl">₹ 450</span>
+            <button class="btn-add-cart py-1 px-6 rounded-full flex items-center">
+              <span>+</span>
+              <span class="ml-4 ">Add to cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- CARD END -->
+      <% } %>
+  </div>
+
+
+</section>
+
+
+<!-- STORE SECTION END -->
