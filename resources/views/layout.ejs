@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
+
   <link rel="stylesheet" href="/css/app.css">
   <title>A Book Store</title>
 </head>
@@ -23,15 +24,45 @@
     </div>
 
     <div class=" my-auto flex">
-      <a  id="cartCounter" class="flex rounded-2xl " href="/cart">
+
+      <span class="dropdown mr-1 my-auto">
+        <img class="my-auto h-10 mr-2" src="/img/user.png" alt="user_img">
+
+        <!-- DROPDOWN -->
+        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+          <% if(user){ %>
+
+            <li class=""><a class="font-bold text-l py-2 px-4 block whitespace-no-wrap"
+                href="/customer/orders">Orders</a></li>
+
+            <% if(user.role === 'seller'){ %>
+              <li class=""><a class="font-bold text-l py-2 px-4 block whitespace-no-wrap"
+                  href="/seller/upload-book">Upload Book</a></li>
+              <% } %>
+            <form id="logout" action="/logout" method="POST">
+              <li class=""><a onclick="document.getElementById('logout').submit()"
+                  class="font-bold text-l py-2 px-4 block whitespace-no-wrap" href="#">Logout</a></li>
+            </form>
+
+
+                <% }else{ %>
+                  <li class=""><a class="font-bold text-l  py-2 px-4 block whitespace-no-wrap" href="/login">Login</a>
+                  </li>
+                  <li class=""><a class="font-bold text-l  py-2 px-4 block whitespace-no-wrap" href="/register">Sign
+                      Up</a>
+                  </li>
+                  <% } %>
+        </ul>
+        <!-- DROPDOWN END -->
+
+
+      </span>
+
+      <a id="cartCounter" class="flex rounded-2xl " href="/cart">
         <span class="font-bold text-2xl my-auto">
           1
         </span>
         <img class="my-auto h-10" src="/img/shopping-cart.png" alt="user_img">
-      </a>
-
-      <a id="profile" href="/"   >
-        <img class="my-auto h-10 mr-2" src="/img/user.png" alt="user_img">
       </a>
 
     </div>

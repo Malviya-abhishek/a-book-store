@@ -17,6 +17,7 @@ nav{
   color: $pure;
 }
 
+
 .btn-add-cart{
   background: $secondary;
   color: $primary;
@@ -46,6 +47,23 @@ nav{
   }
 }
 
+// Drop down
+
+.dropdown-menu li {
+  background-color: $pure;
+  color: $temp;
+  
+  &:hover{
+    background-color: $dark;
+    color: $pure;
+    transition: $smooth;
+  }
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 #cartCounter{
   color: $primary;
   border: solid 2px $temp;
@@ -55,7 +73,6 @@ nav{
     color: $pure;
     border: 2px solid $pure;
     transition: $smooth;
-
   }
 }
 
@@ -68,6 +85,29 @@ nav{
   padding-right: 10px;
 }
 
-#profile{
-  margin-left: 10px;
+//login
+.login-form{
+  
+}
+
+//file upload btn
+
+.fileUpload::file-selector-button {
+
+  background: $secondary;
+  color: $primary;
+  transition: $smooth;
+  border: 2px solid $dark;
+  border-radius: 10%;
+
+  &:hover{
+    border-radius: 10%;
+    background: $dark;
+    color: $pure;
+    border: 2px solid $pure;
+  }
+  &:focus{
+    outline: none;
+  }
+
 }

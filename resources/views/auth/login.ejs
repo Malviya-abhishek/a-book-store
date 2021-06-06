@@ -1,0 +1,49 @@
+<section class="login">
+  
+
+  <div class="login-form mt-10 rounded-xl border-4 border-blue-500 xs:p-0 mx-auto md:w-full md:max-w-md">
+    <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+      <!-- FORM -->
+      <form action="/login" method="POST" class="px-5 py-7">
+        <% if(messages.error){ %>
+          <span class="text-red-500 text-sm"><%= messages.error %></span>
+        <% } %>
+        <label class="font-bold text-lg text-gray-600 pb-1 block">E-mail</label>
+        <input name="email" type="email" value="<%= messages.email  %> " class="rounded-lg border-4 border-blue-500 px-3 py-2 mt-1 mb-5 text-sm w-full" />
+        <label class="font-semibold text-lg text-gray-600 pb-1 block">Password</label>
+        <input name="password" type="password" class="border-4 border-blue-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
+        <button type="submit"
+          class="btn-go-back text-center inline-block font-bold text-lg btn-primary  text-blue-700 w-full py-2.5 rounded-lg border-4 border-blue-500 text-sm shadow-sm ">
+          <span class="inline-block mr-2 ">Login</span>
+        </button>
+      </form>
+      <!-- FORM END -->
+
+      <!-- SIGN UP -->
+      <div class="py-5">
+        <div class="grid grid-cols-1 gap-1">
+          <div class="text-center  whitespace-nowrap">
+            <a href="register" class=" mx-5 px-5 py-4 border-blue-500 cursor-pointer font-bold text-sm rounded-full">
+              <span class="inline-block ml-1">Sign Up</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- SIGN UP END -->
+      
+    </div>
+    
+  </div>
+
+  <div class="container mx-auto text-center">
+    <h1 class="text-2xl font-bold p-10 ">
+      <q>
+        If you only read the books that everyone else is reading, <br>
+        you can only think what everyone else is thinking.
+      </q>
+    </h1>
+    <h6 class="text-xl pb-2"><em>- Haruki Murakami</em></h6>
+  </div>
+  
+
+</section>
