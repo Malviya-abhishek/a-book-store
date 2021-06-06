@@ -1,8 +1,10 @@
+const Book = require('../../model/book');
+
 function HomeController() {
   return {
-    index(req, res) {
-      // console.log(req.session);
-      return res.render('home')
+    async index(req, res) {
+      const books = await Book.find();
+      return res.render('home', {books: books})
     },
   }
 }

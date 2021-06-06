@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, callBack) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const extension = '.jpg'
-    callBack(null, req.body.bookName + '-' + uniqueSuffix + extension)
+    callBack(null, uniqueSuffix + extension)
   },
 });
 
@@ -33,8 +33,6 @@ const upload = multer({
     return callBack(null, true);
   }
 }).single('file-to-upload');
-
-
 
 
 function sellerController() {
@@ -66,14 +64,15 @@ function sellerController() {
             });
 
           fs.unlinkSync(req.file.path);
-          const { bookName, description, tags } = req.body;
+          const { bookName, description, tags, price } = req.body;
 
           const book = new Book({
             name: bookName,
             description: description,
-            image: 'public/uploads/images/' + req.file.filename,
-            tags: tags.split(''),
-            sellerId: req.user
+            image: 'uploads/images/' + req.file.filename,
+            tags: tags.split(' '),
+            sellerId: req.user,
+            price:price
           });
 
 

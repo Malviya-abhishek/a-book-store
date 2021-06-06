@@ -11,9 +11,9 @@ const bookSchema = new Schema({
     type:String,
     require:true
   },
-  rating:{
+  price:{
     type:Number,
-    default:0
+    require:true
   },
   description:{
     type:String
