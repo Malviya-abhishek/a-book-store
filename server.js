@@ -62,7 +62,10 @@ app.use(express.urlencoded( {extended: false} )); // T get the data from the req
 
 // Global Middleware
 app.use( (req, res, next)=>{
+  
   res.locals.user = req.user
+
+
   next();
 });
 

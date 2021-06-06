@@ -21,7 +21,7 @@ const bookSchema = new Schema({
   tags:[ String ],
   image:{
     type:String,
-    default:'default_book.jpg'
+    default:'img/default_book.jpg'
   }
 },{timestapms:true});
 

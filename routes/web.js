@@ -26,8 +26,8 @@ function initRoutes(app){
   app.post('/logout',auth, AuthController().postLogout);
 
   // seller
-  app.get('/seller/upload-book', SellerController().uploadBook);
-  app.post('/seller/upload-book', SellerController().postUploadBook);
+  app.get('/seller/upload-book', seller, SellerController().uploadBook);
+  app.post('/seller/upload-book', seller, SellerController().postUploadBook);
   
   
   // customer
