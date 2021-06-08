@@ -39,7 +39,7 @@ const mongoStore =  MongoDbStore.create({
 app.use(session({
   secret: process.env.COOKIE_SECERET,
   resave: false,
-  // store: mongoStore,
+  store: mongoStore,
   saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
@@ -58,14 +58,17 @@ app.use(passport.session());
 // Assets
 app.use(express.static('public'));
 app.use(express.json()); // To send data to the client side
-app.use(express.urlencoded( {extended: false} )); // T get the data from the request
+app.use(express.urlencoded( {extended: false} )); // To get the data from the request
 
 // Global Middleware
 app.use( (req, res, next)=>{
-  
+  res.locals.session = req.session
+  next();
+});
+
+// Provide user
+app.use( (req, res, next)=>{
   res.locals.user = req.user
-
-
   next();
 });
 

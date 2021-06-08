@@ -64,7 +64,7 @@ nav{
   display: block;
 }
 
-#cartCounter{
+.cartCounter{
   color: $primary;
   border: solid 2px $temp;
   
@@ -76,11 +76,11 @@ nav{
   }
 }
 
-#cartCounter img {
+.cartCounter img {
   padding-right: 10px;
 }
 
-#cartCounter span{
+.cartCounter span{
   padding-left: 20px;
   padding-right: 10px;
 }
@@ -118,4 +118,19 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-appearance: none;
     appearance: none;
     margin: 0; 
+}
+
+
+.step-completed span::after {
+  font-family: "Line Awesome Free";
+  font-size: 30px;
+  font-weight: 600;
+  content: '\f560';
+}
+
+.current span::after{
+  font-family: "Line Awesome Free";
+  font-size: 30px;
+  font-weight: 600;
+  content: '\f70c';
 }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: "Hind Siliguri", sans-serif;
   color: #2563EB;
@@ -54,22 +55,22 @@ nav {
   display: block;
 }
 
-#cartCounter {
+.cartCounter {
   color: #2563EB;
   border: solid 2px #60A5FA;
 }
-#cartCounter:hover {
+.cartCounter:hover {
   background: #1E3A8A;
   color: #fff;
   border: 2px solid #fff;
   transition: all 0.3s ease-in-out;
 }
 
-#cartCounter img {
+.cartCounter img {
   padding-right: 10px;
 }
 
-#cartCounter span {
+.cartCounter span {
   padding-left: 20px;
   padding-right: 10px;
 }
@@ -97,4 +98,18 @@ input[type=number]::-webkit-outer-spin-button {
   -moz-appearance: none;
   appearance: none;
   margin: 0;
+}
+
+.step-completed span::after {
+  font-family: "Line Awesome Free";
+  font-size: 30px;
+  font-weight: 600;
+  content: "";
+}
+
+.current span::after {
+  font-family: "Line Awesome Free";
+  font-size: 30px;
+  font-weight: 600;
+  content: "";
 }

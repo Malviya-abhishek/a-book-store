@@ -34,7 +34,7 @@
           </span>
           <div class="flex items-center justify-around mt-6">
             <span class=" text-xl">₹ <%= book.price %></span>
-            <button class="btn-add-cart py-1 px-6 rounded-full flex items-center">
+            <button class="btn-add-cart add-to-cart py-1 px-6 rounded-full flex items-center" data-book = "<%= JSON.stringify(book) %>" >
               <span>+</span>
               <span class="ml-4 ">Add to cart</span>
             </button>
