@@ -13,13 +13,40 @@ function orderController() {
         return res.redirect('cart');
       }
 
+      const sellers = [];
+
+
+      Object.keys(req.session.cart.sellers).map((key) => {
+        const temp = req.session.cart.sellers[key];
+        const seller = {
+          sellerId: key,
+          status:0,
+          books:[]
+        };
+        
+
+        Object.keys(temp).map((key) => {
+          const book = {
+            qty: temp[key].qty,
+            book:key
+          };
+          seller.books.push(book);
+        })
+        sellers.push(seller);
+      })
+
+
+
+
       // Making order
       const order = new Order({
         customerId: req.user._id,
-        items: req.session.cart.items,
+        sellers: sellers,
         phone: phone,
         address: address
       });
+
+
 
       order.save()
         .then(result => {
@@ -36,9 +63,11 @@ function orderController() {
 
         })
         .catch(err => {
+          console.log(err);
           req.flash('error', 'Something went wrong')
           return res.redirect('/cart');
         })
+
     },
 
     async index(req, res) {

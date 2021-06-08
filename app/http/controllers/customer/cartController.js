@@ -26,25 +26,9 @@ function CartController() {
         }
 
       cart.sellers[order.sellerId][order._id].qty += 1;
-      // cart.totalQty += 1;
-      // cart.totalPrice += 1.0 * order.price;
+      cart.totalQty += 1;
+      cart.totalPrice += 1.0 * order.price;
 
-
-      console.log("[order] ", order);
-      console.log("[cart] ", cart.sellers);
-
-      console.log("************");
-
-      for (let seller of Object.values(cart.sellers)) {
-
-        for (let book of Object.values(seller)) {
-
-          console.log(book)
-
-        }
-      }
-
-      console.log("--------------");
 
       return res.json({ totalQty: cart.totalQty });
     }

@@ -16,30 +16,31 @@ const orderSchema = new Schema({
 
   sellers: [
     {
+
       sellerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        require:true,
+        ref: 'User',
+        require: true,
       },
-      status:{
-        type:Number,
-        require:true,
-        default:0
+      status: {
+        type: Number,
+        require: true,
+        default: 0
       },
-      books:[
-        { 
-          qty:{
-            type:Number,
+      books: [
+        {
+          qty: {
+            type: Number,
             require: true
           },
-          book:{
+          book: {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'Book',
-            require:true
+            ref: 'Book',
+            require: true
           }
         },
       ],
-      
+
     },
   ],
   phone: {
@@ -58,45 +59,25 @@ const orderSchema = new Schema({
 }, { timestamps: true });
 
 
-orderSchema.pre('save', function(next){
+orderSchema.pre('updateOne', function (next) {
+  console.log("Hello from mongoose")
   let x = 4;
-  this.sellers.forEach( order => {
+  this.sellers.forEach(order => {
     x = Math.min(x, order.status);
   });
   this.status = x;
   next();
 });
 
-// const orderSchema = new Schema({
-//   customerId:{
-//     type:mongoose.Schema.Types.ObjectId, 
-//     ref: 'User',
-//     require:true,
-//   },
+orderSchema.statics.findOrders = function findOrders(sellerId) {
 
-//   items:{
-//     type: Object,
-//     require: true,
-//   },
+  return  this.find(
+    { "sellers.sellerId": sellerId },
+    null,
+    { sort: { 'createdAt': -1 } }
+  );
 
-
-//   phone:{
-//     type: String,
-//     require:true
-//   },
-//   address:{
-//     type:String,
-//     require:true
-//   },
-//   paymentType:{
-//     type:String,
-//     default:"COD"
-//   },
-//   status:{
-//     type:String,
-//     default:"order_place"
-//   }
-// }, {timestamps: true});
+}
 
 const Order = mongoose.model('Order', orderSchema);
 

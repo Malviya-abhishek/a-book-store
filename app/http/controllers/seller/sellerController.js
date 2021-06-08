@@ -92,176 +92,39 @@ function sellerController() {
     },
     async show(req, res) {
 
-      const ordersRaw = await Order.find( {}, null, { sort: { 'createdAt': -1 } });
+      const ordersRaw = await Order.findOrders(req.user._id);
+
       const orders = []
 
+      console.log('[User id]', req.user._id);
 
       ordersRaw.forEach(order => {
 
-        Object.keys(order.items).map((key) => {
-          if(order.items[key].item.sellerId != req.user._id){
-            delete order.items[key];
+        order.sellers.forEach(seller => {
+
+          let s1 = seller.sellerId + "";
+          let s2 = req.user._id + "";
+          if ( s1 === s2  ) {
+            console.log(seller);
+
+            orders.push(seller)
           }
+
         });
 
-        if(Object.entries(order.items).length)
-          orders.push(order)
-        
+
       });
+
 
       res.header(
         'Cache-Control',
         'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0'
       );
 
-      res.render('customers/orders', { orders: orders, moment: moment });
+      res.render('customers/orders', { orders: [], moment: moment });
 
     },
   };
 }
 
 module.exports = sellerController;
-
-// {
-//   '60bceb97e1c09ea13b477626': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993815363-129889977.jpg',
-//       _id: '60bceb97e1c09ea13b477626',
-//       name: ' Little Town 2',
-//       description: 'asd asd asd ',
-//       sellerId: '60bbe508b60932021a0ee2ee',
-//       price: 321,
-//       __v: 0
-//     }
-//   },
-//   '60bceaad6b833f9f7f448ca0': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993581959-9915384.jpg',
-//       _id: '60bceaad6b833f9f7f448ca0',
-//       name: ' Little Town',
-//       description: 'qwe qwe qwe qwe ',
-//       price: 123,
-//       __v: 0
-//     }
-//   }
-// }
-// -------------
-// {
-//   '60bd02f3634770ad373789fa': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622999795713-358050034.jpg',
-//       _id: '60bd02f3634770ad373789fa',
-//       name: ' Little Town 3',
-//       description: 'This is little town three',
-//       sellerId: '60bbe508b60932021a0ee2ee',
-//       price: 345,
-//       __v: 0
-//     }
-//   }
-// }
-// -------------
-// {
-//   '60bceaad6b833f9f7f448ca0': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993581959-9915384.jpg',
-//       _id: '60bceaad6b833f9f7f448ca0',
-//       name: ' Little Town',
-//       description: 'qwe qwe qwe qwe ',
-//       price: 123,
-//       __v: 0
-//     }
-//   },
-//   '60bceb97e1c09ea13b477626': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993815363-129889977.jpg',
-//       _id: '60bceb97e1c09ea13b477626',
-//       name: ' Little Town 2',
-//       description: 'asd asd asd ',
-//       sellerId: '60bbe508b60932021a0ee2ee',
-//       price: 321,
-//       __v: 0
-//     }
-//   },
-//   '60bd02f3634770ad373789fa': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622999795713-358050034.jpg',
-//       _id: '60bd02f3634770ad373789fa',
-//       name: ' Little Town 3',
-//       description: 'This is little town three',
-//       sellerId: '60bbe508b60932021a0ee2ee',
-//       price: 345,
-//       __v: 0
-//     }
-//   }
-// }
-// -------------
-// {
-//   '60bceaad6b833f9f7f448ca0': {
-//     qty: 2,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993581959-9915384.jpg',
-//       _id: '60bceaad6b833f9f7f448ca0',
-//       name: ' Little Town',
-//       description: 'qwe qwe qwe qwe ',
-//       price: 123,
-//       __v: 0
-//     }
-//   }
-// }
-// -------------
-// {
-//   '60bceb97e1c09ea13b477626': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993815363-129889977.jpg',
-//       _id: '60bceb97e1c09ea13b477626',
-//       name: ' Little Town 2',
-//       description: 'asd asd asd ',
-//       sellerId: '60bbe508b60932021a0ee2ee',
-//       price: 321,
-//       __v: 0
-//     }
-//   },
-//   '60bceaad6b833f9f7f448ca0': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993581959-9915384.jpg',
-//       _id: '60bceaad6b833f9f7f448ca0',
-//       name: ' Little Town',
-//       description: 'qwe qwe qwe qwe ',
-//       price: 123,
-//       __v: 0
-//     }
-//   }
-// }
-// -------------
-// {
-//   '60bceb97e1c09ea13b477626': {
-//     qty: 1,
-//     item: {
-//       tags: [Array],
-//       image: 'uploads/images/1622993815363-129889977.jpg',
-//       _id: '60bceb97e1c09ea13b477626',
-//       name: ' Little Town 2',
-//       description: 'asd asd asd ',
-//       sellerId: '60bbe508b60932021a0ee2ee',
-//       price: 321,
-//       __v: 0
-//     }
-//   }
-// }
