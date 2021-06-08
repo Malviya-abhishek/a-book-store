@@ -96,24 +96,28 @@ function sellerController() {
 
       const orders = []
 
-      console.log('[User id]', req.user._id);
 
       ordersRaw.forEach(order => {
 
-        order.sellers.forEach(seller => {
+        let temp;
 
-          let s1 = seller.sellerId + "";
+        for (let i = 0; i < order.sellers.length; ++i) {
+          let s1 = order.sellers[i].sellerId + "";
           let s2 = req.user._id + "";
-          if ( s1 === s2  ) {
-            console.log(seller);
-
-            orders.push(seller)
+          if (s1 == s2) {
+            temp = order.sellers[i];
+            break;
           }
+        }
 
-        });
-
+        order.sellers = temp ;
+        console.log(temp);
+        orders.push(order);
 
       });
+
+      
+
 
 
       res.header(
@@ -121,7 +125,7 @@ function sellerController() {
         'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0'
       );
 
-      res.render('customers/orders', { orders: [], moment: moment });
+      res.render('sellers/orders', { orders: orders, moment: moment });
 
     },
   };

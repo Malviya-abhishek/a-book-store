@@ -60,7 +60,6 @@ const orderSchema = new Schema({
 
 
 orderSchema.pre('updateOne', function (next) {
-  console.log("Hello from mongoose")
   let x = 4;
   this.sellers.forEach(order => {
     x = Math.min(x, order.status);

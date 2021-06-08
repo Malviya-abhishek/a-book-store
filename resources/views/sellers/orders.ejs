@@ -9,6 +9,7 @@
           <th class="px-4 py-2 text-left"> Address</th>
           <th class="px-4 py-2 text-left"> Phone</th>
           <th class="px-4 py-2 text-left"> Time</th>
+          <th class="px-4 py-2 text-left"> Status</th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +19,7 @@
           <% orders.forEach( (order)=>{ %>
             <tr>
               <td class="border px-4 py-2">
-                <a href= '/customer/order/<%= order._id %>  ' class="link">
+                <a href= '/sellers/order/<%= order._id %>  ' class="link">
                   <%= order._id %>
                 </a>
               </td>
@@ -30,6 +31,9 @@
               </td>
               <td class="border px-4 py-2">
                 <%= moment(order.createdAt).format('hh:mm A') %>
+              </td>
+              <td class="border px-4 py-2">
+                <%= order.sellers[0].status%>
               </td>
             </tr>
             <% }) %>
