@@ -7,7 +7,8 @@ const fs = require('fs');
 const Book = require('../../../model/book');
 const Order = require('../../../model/order');
 const moment = require('moment');
-
+const { status } = require('../../../config/status');
+const { statusToCode } = require('../../../config/status');
 
 const storage = multer.diskStorage({
   destination: function (req, file, callBack) {
@@ -90,35 +91,14 @@ function sellerController() {
         }
       });
     },
-    async show(req, res) {
 
-      const ordersRaw = await Order.findOrders(req.user._id);
+    async index(req, res) {
 
-      const orders = []
-
-
-      ordersRaw.forEach(order => {
-
-        let temp;
-
-        for (let i = 0; i < order.sellers.length; ++i) {
-          let s1 = order.sellers[i].sellerId + "";
-          let s2 = req.user._id + "";
-          if (s1 == s2) {
-            temp = order.sellers[i];
-            break;
-          }
-        }
-
-        order.sellers = temp ;
-        console.log(temp);
-        orders.push(order);
-
-      });
-
-      
-
-
+      const orders = await Order.find(
+        { "sellerId": req.user._id },
+        null,
+        { sort: { 'updatedAt': -1 } }
+      );
 
       res.header(
         'Cache-Control',
@@ -128,6 +108,31 @@ function sellerController() {
       res.render('sellers/orders', { orders: orders, moment: moment });
 
     },
+
+    async show(req, res) {
+
+      const order = await Order
+        .findById(req.params.id)
+        .populate("books.book");
+
+      // Authorise user
+      if (req.user._id.toString() === order.sellerId.toString())
+        return res.render('sellers/singleOrder.ejs', { order: order, moment: moment })
+
+      return res.render('/');
+
+    },
+
+    async statusUpdate(req, res) {
+
+      Order.updateOne({ _id: req.params.id }, { status: req.body.status }, function (err) {
+        if (err)
+          console.log(err);
+      });
+
+      return res.redirect(`/seller/order/${req.params.id}`);
+
+    }
   };
 }
 

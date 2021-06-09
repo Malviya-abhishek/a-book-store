@@ -1,0 +1,109 @@
+<section class="orders light-section ml-5">
+  <div class="container mx-auto pt-12">
+    <h1 class="font-bold lg mb-4">Order Details</h1>
+
+    <div>
+
+      <h2 class="mb-2 "> Status:
+        <span class="font-bold lg pl-1 pr-5">
+          <%= order.status == -1 ? "Order Canceled" : ''  %>
+          <%= order.status == 0 ? "Order Placed" : ''  %>
+          <%= order.status == 1 ? "Order Confirmed" : ''  %>
+          <%= order.status == 2 ? "Out for delivery" : ''  %>
+          <%= order.status == 3 ? "Order Completed" : ''  %>    
+        </span>
+        <span id="statusSelecter">
+          <form action="/seller/order/<%= order._id %>" method="POST">
+            <select name="status" onchange="this.form.submit()"
+              class=" bg-white border border-gray-400 hover:border-gray-500 px-4 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline  ">
+              
+              <option value="-1"  <% order.status == -1 ?  'selected' : '' %>  >
+                Canceled</option>
+              <option value="0"  <%=order.status == 0 ? 'selected' : '' %> >
+                Placed</option>
+              <option value="1" <%= order.status == 1 ? 'selected' : '' %> >
+                Confirmed</option>
+              <option value="2"  <%= order.status == 2 ? 'selected' : '' %> >
+                Delivered
+              </option>
+              <option value="3"  <%= order.status == 3 ? 'selected' : '' %> >
+                Completed
+              </option>
+
+            </select>
+          </form>
+        </span>
+      </h2>
+
+      <h2 class=" mb-2 ">Updated on:
+        <span class="font-bold lg">
+          <%= moment(order.updatedAt).format('D MMMM YYYY, h:mm A') %>
+        </span>
+      </h2>
+
+      <h2 class=" mb-2 ">Ordered on:
+        <span class="font-bold lg">
+          <%= moment(order.createdAt).format('D MMMM YYYY, h:mm A') %>
+        </span>
+      </h2>
+
+      <h2 class=" mb-2 ">Adderess:
+        <span class="font-bold lg">
+          <%= order.address %>
+        </span>
+      </h2>
+
+      <h2 class=" mb-2 ">Phone:
+        <span class="font-bold lg">
+          <%= order.phone %>
+        </span>
+      </h2>
+
+    </div>
+
+    <div class="mt-10 mb-10">
+      <h1 class="font-bold lg mb-5 "> Books </h1>
+
+      <table class="w-full table-auto bg-white">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left">Book</th>
+            <th class="px-4 py-2 text-left">Name</th>
+            <th class="px-4 py-2 text-left">Quantity</th>
+            <th class="px-4 py-2 text-left">Rate</th>
+            <th class="px-4 py-2 text-left">Price</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% order.books.forEach( (book)=> { %>
+            <tr>
+              <td class="border px-4 py-2">
+                <img class="h-32" src="/<%= book.book.image %>" alt="">
+              </td>
+
+              <td class="border px-4 py-2">
+                <%= book.book.name %>
+              </td>
+
+              <td class="border px-4 py-2">
+                <%= book.qty %>
+              </td>
+
+              <td class="border px-4 py-2">
+                <%= book.book.price %>
+              </td>
+
+              <td class="border px-4 py-2">
+                <%= book.qty*book.book.price %>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+</section>

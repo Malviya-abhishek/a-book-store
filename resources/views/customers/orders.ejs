@@ -2,53 +2,65 @@
   <div class="container mx-auto pt-12">
     <h1 class="font-bold lg mb-4">All orders</h1>
     <% if(messages.success) { %>
-    <div id="success-alert" class="flex item-center bg-green-500 text-white text-sm font-bold px-4 py-3" role="alert">
-      <p> <%= messages.success %>  </p>
-    </div>
-    <% } %>
-    <table class="w-full table-auto bg-white">
-      <thead>
-        <tr>
-          <th class="px-4 py-2 text-left"> Orders</th>
-          <th class="px-4 py-2 text-left"> Address</th>
-          <th class="px-4 py-2 text-left"> Phone</th>
-          <th class="px-4 py-2 text-left"> Time</th>
-
-        </tr>
-      </thead>
-      <tbody>
-
-        <% if(orders){ %>
-
-          <% orders.forEach( (order)=>{ %>
+      <div id="success-alert" class="flex item-center bg-green-500 text-white text-sm font-bold px-4 py-3" role="alert">
+        <p>
+          <%= messages.success %>
+        </p>
+      </div>
+      <% } %>
+        <table class="w-full table-auto bg-white">
+          <thead>
             <tr>
-              <td class="border px-4 py-2">
-                <a href= '/customer/order/<%= order._id %>  ' class="link">
-                  <%= order._id %>
-                </a>
-              </td>
-              <td class="border px-4 py-2">
-                <%= order.address %>
-              </td>
-              <td class="border px-4 py-2">
-                <%= order.phone %>
-              </td>
-              <td class="border px-4 py-2">
-                <%= moment(order.createdAt).format('hh:mm A') %>
-              </td>
+              <th class="px-4 py-2 text-left"> Orders</th>
+              <th class="px-4 py-2 text-left"> Address</th>
+              <th class="px-4 py-2 text-left"> Phone</th>
+              <th class="px-4 py-2 text-left"> Time</th>
+              <th class="px-4 py-2 text-left"> Status</th>
+
             </tr>
-            <% }) %>
+          </thead>
+          <tbody>
 
+            <% if(orders){ %>
 
-              <% } else { %>
+              <% orders.forEach( (order)=>{ %>
                 <tr>
-                  <td class="p-4">
-                    <span> No orders</span>
+                  <td class="border px-4 py-2">
+                    <a href='/customer/order/<%= order._id %>  ' class="link">
+                      <%= order._id %>
+                    </a>
                   </td>
-                </tr>
-                <% } %>
-      </tbody>
+                  <td class="border px-4 py-2">
+                    <%= order.address %>
+                  </td>
+                  <td class="border px-4 py-2">
+                    <%= order.phone %>
+                  </td>
+                  <td class="border px-4 py-2">
+                    <%= moment(order.createdAt).format('D MMMM YYYY, h:mm A') %>
+                  </td>
 
-    </table>
+                  <td class="border px-4 py-2">
+                    <%= order.status==-1 ? "Order Canceled" : '' %>
+                      <%= order.status==0 ? "Order Placed" : '' %>
+                        <%= order.status==1 ? "Order Confirmed" : '' %>
+                          <%= order.status==2 ? "Out for delivery" : '' %>
+                            <%= order.status==3 ? "Order Completed" : '' %>
+                  </td>
+
+                </tr>
+                <% }) %>
+
+
+                  <% } else { %>
+                    <tr>
+                      <td class="p-4">
+                        <span> No orders</span>
+                      </td>
+                    </tr>
+                    <% } %>
+          </tbody>
+
+        </table>
   </div>
 </section>

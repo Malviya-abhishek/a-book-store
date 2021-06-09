@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const orderSchema = new Schema({
   customerId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -9,40 +8,32 @@ const orderSchema = new Schema({
     require: true,
   },
 
-  status: {
-    type: String,
-    default: "order_place"
+  sellerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    require: true,
   },
 
-  sellers: [
+  status: {
+    type: Number,
+    default: 0
+  },
+
+
+  books: [
     {
-
-      sellerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        require: true,
-      },
-      status: {
+      qty: {
         type: Number,
-        require: true,
-        default: 0
+        require: true
       },
-      books: [
-        {
-          qty: {
-            type: Number,
-            require: true
-          },
-          book: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Book',
-            require: true
-          }
-        },
-      ],
-
+      book: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book',
+        require: true
+      }
     },
   ],
+
   phone: {
     type: String,
     require: true
@@ -59,24 +50,28 @@ const orderSchema = new Schema({
 }, { timestamps: true });
 
 
-orderSchema.pre('updateOne', function (next) {
-  let x = 4;
-  this.sellers.forEach(order => {
-    x = Math.min(x, order.status);
-  });
-  this.status = x;
-  next();
-});
 
-orderSchema.statics.findOrders = function findOrders(sellerId) {
+// orderSchema.pre('updateOne', function (next) {
+//   console.log("[Order modle pre updateOne]");
+//   let x = 4;
+//   this.sellers.forEach(order => {
+//     x = Math.min(x, order.status);
+//   });
+//   this.status = x;
+//   next();
+// });
 
-  return  this.find(
-    { "sellers.sellerId": sellerId },
-    null,
-    { sort: { 'createdAt': -1 } }
-  );
+// orderSchema.statics.findOrders = function findOrders(sellerId) {
 
-}
+//   return  this.find(
+//     { "sellers.sellerId": sellerId },
+//     null,
+//     { sort: { 'createdAt': -1 } }
+//   );
+
+// }
+
+
 
 const Order = mongoose.model('Order', orderSchema);
 

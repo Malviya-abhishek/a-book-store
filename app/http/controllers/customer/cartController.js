@@ -7,30 +7,33 @@ function CartController() {
 
       if (!req.session.cart) {
         req.session.cart = {
-          sellers: {},
+          orders: {},
           totalQty: 0,
           totalPrice: 0
         }
       }
 
       const cart = req.session.cart;
-      const order = req.body;
+      const book = req.body;
 
-      if (!cart.sellers[order.sellerId])
-        cart.sellers[order.sellerId] = {};
+      console.log(book);
 
-      if (!cart.sellers[order.sellerId][order._id])
-        cart.sellers[order.sellerId][order._id] = {
+      if (!cart.orders[book.sellerId])
+        cart.orders[book.sellerId] = {};
+
+      if (!cart.orders[book.sellerId][book._id])
+        cart.orders[book.sellerId][book._id] = {
           qty: 0,
-          order:order
+          book:book
         }
 
-      cart.sellers[order.sellerId][order._id].qty += 1;
+      cart.orders[book.sellerId][book._id].qty += 1;
       cart.totalQty += 1;
-      cart.totalPrice += 1.0 * order.price;
+      cart.totalPrice += 1.0 * book.price;
 
+       
 
-      return res.json({ totalQty: cart.totalQty });
+      return res.json({ totalQty: cart.totalQty});
     }
   }
 }

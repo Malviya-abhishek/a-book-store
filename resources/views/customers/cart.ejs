@@ -9,25 +9,25 @@
       </div>
 
       <!-- CART ITEMS -->
-      <div class="pizza-list">
+      <div>
 
-        <% for(let seller of Object.values(session.cart.sellers) ) {%>
+        <% for(let order of Object.values(session.cart.orders) ) {%>
 
-          <% for(let book of Object.values(seller) ) {%>
+          <% for(let books of Object.values(order) ) {%>
             <!-- ITEM -->
             <div class="flex items-center my-8">
-              <img class="w-24" src="<%= book.order.image %>" alt="">
+              <img class="w-24" src="<%= books.book.image %>" alt="">
               <div class="flex-1 ml-4">
 
                 <h1 class="text-lg">
-                  <%= book.order.name %>
+                  <%= books.book.name %>
                 </h1>
 
               </div>
               <span class="flex-1">
-                ₹ <%= book.order.price %> × <%= book.qty %> =
+                ₹ <%= books.book.price %> × <%= books.qty %> =
               </span>
-              <span class="font-bold  text-lg">₹ <%= book.qty * book.order.price %> </span>
+              <span class="font-bold  text-lg">₹ <%= books.qty * books.book.price %> </span>
             </div>
             <!-- ITEM END -->
 

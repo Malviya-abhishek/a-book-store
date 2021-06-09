@@ -4,7 +4,7 @@ const moment = require('moment');
 function orderController() {
   return {
 
-    store(req, res) {
+    async store(req, res) {
       const { phone, address } = req.body;
 
       //Validate request
@@ -13,61 +13,54 @@ function orderController() {
         return res.redirect('cart');
       }
 
-      const sellers = [];
+      const orders = [];
 
+      Object.keys(req.session.cart.orders).map((key) => {
 
-      Object.keys(req.session.cart.sellers).map((key) => {
-        const temp = req.session.cart.sellers[key];
-        const seller = {
+        const temp = req.session.cart.orders[key];
+
+        const order = {
+          customerId: req.user._id,
           sellerId: key,
-          status:0,
-          books:[]
+          status: 0,
+          books: [],
+          phone: phone,
+          address: address
         };
-        
+
 
         Object.keys(temp).map((key) => {
           const book = {
             qty: temp[key].qty,
-            book:key
+            book: key
           };
-          seller.books.push(book);
+          order.books.push(book);
         })
-        sellers.push(seller);
-      })
 
+        orders.push(order);
 
-
-
-      // Making order
-      const order = new Order({
-        customerId: req.user._id,
-        sellers: sellers,
-        phone: phone,
-        address: address
       });
 
-
-
-      order.save()
-        .then(result => {
-          req.flash('success', 'Order placed succesfully');
-          delete req.session.cart
-
-          // Emit event for order update
-          Order.populate(result, { path: 'customerId', select: '-password' }, (err, placedOrder) => {
-            // const eventEmitter = req.app.get('eventEmitter');
-            // eventEmitter.emit('orderPlaced', result);
-            return res.redirect('/customer/orders');
-          });
-
-
-        })
-        .catch(err => {
-          console.log(err);
-          req.flash('error', 'Something went wrong')
-          return res.redirect('/cart');
-        })
-
+      // Making order
+      for (let i = 0; i < orders.length; ++i) {
+        const newOrder = new Order(orders[i]);
+        newOrder.save(
+          function (err) {
+            if (err) {
+              console.log(err);
+              flag = true;
+              req.flash('error', 'Something went wrong');
+              return res.redirect('/cart');
+            }
+          }
+        );
+      }
+      
+      req.flash('success', 'Order placed succesfully');
+      delete req.session.cart;
+     
+      return res.redirect('/customer/orders');
+      
     },
 
     async index(req, res) {
@@ -87,12 +80,17 @@ function orderController() {
 
     async show(req, res) {
       const order = await Order.findById(req.params.id);
+
+
       // Authorise user
       if (req.user._id.toString() === order.customerId.toString()) {
         return res.render('customers/singleOrder', { order: order });
       }
+      
       return res.redirect('/');
-    }
+    },
+
+
 
 
   }

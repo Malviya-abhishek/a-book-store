@@ -28,7 +28,10 @@ function initRoutes(app){
   // seller
   app.get('/seller/upload-book', seller, SellerController().uploadBook);
   app.post('/seller/upload-book', seller, SellerController().postUploadBook);
-  app.get('/seller/orders', seller, SellerController().show);
+  app.get('/seller/orders', seller, SellerController().index);
+  app.get('/seller/order/:id', seller, SellerController().show);
+  app.post('/seller/order/:id', seller, SellerController().statusUpdate);
+
   
   
   // customer

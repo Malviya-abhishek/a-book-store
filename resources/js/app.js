@@ -2,20 +2,20 @@
 const axios = require('axios');
 let addToCart = document.querySelectorAll('.add-to-cart');
 
-function updateCart(book){
+function updateCart(book) {
   axios.post('/update-cart', book)
-    .then(res=>{
+    .then(res => {
       console.log(res);
       cartCounter.innerText = res.data.totalQty;
     })
-    .catch(err =>{
+    .catch(err => {
       console.log(err);
     })
 }
 
 
-addToCart.forEach( (btn)=>{
-  btn.addEventListener('click', (e)=>{
+addToCart.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
     let book = btn.dataset.book;
     book = JSON.parse(book);
     updateCart(book);
@@ -32,7 +32,7 @@ let time = document.createElement('small');
 function updateStatus(order) {
   let stepCompleted = true;
 
-  statues.forEach((status)=>{
+  statues.forEach((status) => {
     status.classList.remove('step-comleted');
     status.classList.remove('current');
   })
@@ -43,7 +43,7 @@ function updateStatus(order) {
     if (stepCompleted) {
       status.classList.add('step-completed')
     }
-    if (dataProp === order.status) {
+    if (dataProp == order.status) {
       stepCompleted = false;
       time.innerText = moment(order.updatedAt).format('hh:mm A');
       status.appendChild(time);
@@ -52,9 +52,18 @@ function updateStatus(order) {
       }
     }
   });
+
+  if (stepCompleted) {
+    statues.forEach((status) => {
+      status.classList.remove('step-comleted');
+      status.classList.remove('current');
+    });
+    
+  }
+
 }
 
-// updateStatus(order);
+updateStatus(order);
 
 const alertMsg = document.querySelector('#success-alert');
 if (alertMsg) {

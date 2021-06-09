@@ -1880,7 +1880,7 @@ function updateStatus(order) {
       status.classList.add('step-completed');
     }
 
-    if (dataProp === order.status) {
+    if (dataProp == order.status) {
       stepCompleted = false;
       time.innerText = moment(order.updatedAt).format('hh:mm A');
       status.appendChild(time);
@@ -1890,9 +1890,16 @@ function updateStatus(order) {
       }
     }
   });
-} // updateStatus(order);
 
+  if (stepCompleted) {
+    statues.forEach(function (status) {
+      status.classList.remove('step-comleted');
+      status.classList.remove('current');
+    });
+  }
+}
 
+updateStatus(order);
 var alertMsg = document.querySelector('#success-alert');
 
 if (alertMsg) {

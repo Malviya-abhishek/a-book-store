@@ -19,7 +19,7 @@
           <% orders.forEach( (order)=>{ %>
             <tr>
               <td class="border px-4 py-2">
-                <a href= '/sellers/order/<%= order._id %>  ' class="link">
+                <a href= '/seller/order/<%= order._id %>  ' class="link">
                   <%= order._id %>
                 </a>
               </td>
@@ -30,10 +30,14 @@
                 <%= order.phone %>
               </td>
               <td class="border px-4 py-2">
-                <%= moment(order.createdAt).format('hh:mm A') %>
+                <%= moment(order.createdAt).format('D MMMM YYYY, h:mm A')%>
               </td>
               <td class="border px-4 py-2">
-                <%= order.sellers[0].status%>
+                <%= order.status == -1 ? "Order Canceled" : ''  %>
+                <%= order.status == 0 ? "Order Placed" : ''  %>
+                <%= order.status == 1 ? "Order Confirmed" : ''  %>
+                <%= order.status == 2 ? "Out for delivery" : ''  %>
+                <%= order.status == 3 ? "Order Completed" : ''  %>              
               </td>
             </tr>
             <% }) %>
