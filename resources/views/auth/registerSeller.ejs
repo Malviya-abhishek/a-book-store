@@ -3,7 +3,7 @@
   <div class="login-form mt-10 rounded-xl border-4 border-blue-500 xs:p-0 mx-auto md:w-full md:max-w-md">
     <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
       <!-- FORM -->
-      <form action="/register" method="POST" class="px-5 py-7">
+      <form action="/register-seller" method="POST" class="px-5 py-7">
         <% if(messages.error){ %> 
         <span class="text-red-500 text-sm" >
             <%= messages.error %> 
@@ -18,7 +18,7 @@
         <input name="password" type="password" class="border-4 border-blue-500 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
         <button type="submit"
           class="btn-go-back text-center inline-block font-bold text-lg btn-primary  text-blue-700 w-full py-2.5 rounded-lg border-4 border-blue-500 text-sm shadow-sm ">
-          <span class="inline-block mr-2 ">Sign Up</span>
+          <span class="inline-block mr-2 ">Sign Up Seller</span>
         </button>
       </form>
       <!-- FORM END -->
@@ -27,12 +27,11 @@
       <div class="py-5">
         <div class="grid grid-cols-1 gap-1">
           <div class="text-center  whitespace-nowrap">
-            <a href="/register-seller" class=" mx-5 px-5 py-4 border-blue-500 cursor-pointer font-bold text-sm rounded-full">
-              <span class="inline-block ml-1">Register as a Seller</span>
+            <a href="/register" class=" mx-5 px-5 py-4 border-blue-500 cursor-pointer font-bold text-sm rounded-full">
+              <span class="inline-block ml-1">Register as a Customer</span>
             </a>
           </div>
       </div>
-
       <div class="py-5">
           <div class="text-center  whitespace-nowrap">
             <a href="/login" class=" mx-5 px-5 py-4 border-blue-500 cursor-pointer font-bold text-sm rounded-full">
@@ -41,7 +40,6 @@
           </div>
         </div>
       </div>
-
       <!-- SIGN UP END -->
 
     </div>

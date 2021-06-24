@@ -21,7 +21,9 @@ function initRoutes(app){
   // Auth
   app.get('/login', guest, AuthController().login);
   app.post('/login',guest, AuthController().postLogin);
+  app.get('/register-seller', guest, AuthController().registerSeller);
   app.get('/register', guest, AuthController().register);
+  app.post('/register-seller',guest, AuthController().postRegisterSeller);
   app.post('/register',guest, AuthController().postRegister);
   app.post('/logout',auth, AuthController().postLogout);
 

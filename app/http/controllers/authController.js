@@ -7,8 +7,13 @@ function AuthController() {
     login(req, res) {
       return res.render('auth/login')
     },
+
     register(req, res) {
       return res.render('auth/register')
+    },
+
+    registerSeller(req, res) {
+      return res.render('auth/registerSeller')
     },
 
     postLogin(req, res, next) {
@@ -56,6 +61,61 @@ function AuthController() {
         name: name,
         email: email,
         password: hashedPassword
+      });
+
+      user.save().then(() => {
+        // Login Logic
+        passport.authenticate('local', (err, user, info) => {
+          if (err) {
+            req.flash('error', info.message);
+            return next(err);
+          }
+          if (!user) {
+            req.flash('error', info.message);
+            return res.redirect('/login');
+          }
+          req.login(user, (err) => {
+            if (err) {
+              req.flash('error', info.message);
+              return next(err);
+            }
+          });
+          return res.redirect('/');
+        })(req, res, next);
+
+        // return res.redirect('/');
+      }).catch(err => {
+        // Same email
+        if (err.code === 11000) {
+          req.flash('error', 'Email Already registered');
+          req.flash('name', name);
+          req.flash('email', email);
+          return res.redirect('/register');
+        }
+
+        req.flash('error', 'Something went wrong');
+        return res.redirect('/register');
+      });
+    },
+
+    async postRegisterSeller(req, res, next){
+      const { name, email, password } = req.body;
+
+      if (!name || !email || !password) {
+        req.flash('error', 'All fields are requied');
+        req.flash('name', name);
+        req.flash('email', email);
+        return res.redirect('/register-seller');
+      }
+
+      //Hashig password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = new User({
+        name: name,
+        email: email,
+        password: hashedPassword,
+        role: "seller"
       });
 
       user.save().then(() => {
