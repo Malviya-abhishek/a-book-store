@@ -3,6 +3,7 @@ const express = require("express");
 const ejs = require("ejs");
 const expressLayout = require("express-ejs-layouts");
 const path = require("path");
+const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDbStore = require("connect-mongo");
 const flash = require("express-flash");
@@ -13,38 +14,26 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Database connection
-const mongoose = require("mongoose");
-const options = {
+const uri = process.env.DB_URL;
+mongoose.connect(uri, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
-};
-
-mongoose.connect(process.env.DB_URL, options);
-
+	useFindAndModify: true,
+	useCreateIndex: true,
+});
 const connection = mongoose.connection;
 
-const connectWithRetry = () => {
-	console.log("MongoDb connection with retry");
-	connection
-		.once("open", () => {
-			console.log("MongoDb connected");
-		})
-		.catch((err) => {
-			console.log(
-				"MongoDb connection unsuccesful, retry after 5 seconds",
-				err
-			);
-			setTimeout(connectWithRetry, 5000);
-		});
-};
-
-connectWithRetry();
+connection.once("open", () => {
+	console.log("Database Connected!");
+});
 
 //Session Store
 const mongoStore = MongoDbStore.create({
-	client: connection.client,
+	// client: connection.client,
+	mongoUrl: process.env.DB_URL,
 	collection: "sessions",
 	clear_interval: 300,
+	// mongoOptions:
 });
 
 //Sesion Config
