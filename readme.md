@@ -1,5 +1,4 @@
 # A book store ✨
-## Hakuna Matata
 
 ### A book store is a bookselling website on which sellers can upload details about a book and can keep track of new orders while a user can order a book.
 
