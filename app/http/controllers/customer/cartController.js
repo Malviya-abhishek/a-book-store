@@ -16,7 +16,6 @@ function CartController() {
       const cart = req.session.cart;
       const book = req.body;
 
-      console.log(book);
 
       if (!cart.orders[book.sellerId])
         cart.orders[book.sellerId] = {};
