@@ -3,7 +3,7 @@
 ### A book store is a bookselling website on which sellers can upload details about a book and can keep track of new orders while a user can order a book.
 
 ## Demo
-    [a-book-store](http://13.233.144.251:3000/)
+[a-book-store](http://13.233.144.251:3000/)
 
 ## Tech 
 - Express
